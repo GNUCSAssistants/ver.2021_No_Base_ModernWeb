@@ -1,7 +1,8 @@
+// 필요한 건 nodejs, git
 // 프로젝트 폴더 만들어줌
-// 서버를 돌릴 것이기에 c드라이브 user 에 만들어주기로 한다.
+// 서버를 돌릴 것이기에 c드라이브 user 하위에 만들어주기로 한다.
 // 디렉터리 이름은 graphql_backend
-// 필요한 건 nodejs
+// git clone https://github.com/GNUCSAssistants/TypeScript-Init
 
 // npm init
 

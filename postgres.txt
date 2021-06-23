@@ -1,0 +1,98 @@
+postgres, pg, psql 이라고도 한다.
+postgres는 특이하게도, 다른 디비와는 달리 스키마를 작성해줘야됨. (스키마는 db 만들고나서 만듦.)
+그렇게 하면 안돌아가는건 아닌데, 특히 나중에 배울 postgraphile 을 위해서는 꼭 해줘야함.
+보안문제때문이라고 일단은 알아두자.
+스키마는 namespace다. 폴더같은거다. 
+
+sudo service postgresql start
+sudo -u postgres psql
+
+맨 처음 설치 후에 우분투 postgres user password 와, db password를 설정해줘야.
+
+포트는 기본 5432
+
+db list 
+# \l
+
+DB 만들기
+CREATE DATABASE test;
+
+DB 커넥트
+\c test;
+
+스키마 만들기
+CREATE SCHEMA jony;
+
+스키마 조회
+\dn
+
+
+
+DB 없애기(매우 위험)
+DROP DATABASE test;
+
+DATATYPE
+숫자(INT)
+오토인크리먼트숫자(SERIAL)
+문자열(TEXT)
+날짜(DATE)
+타임존 포함 시간포함날짜(TIMESTAMPTZ). 만약 현재 시간이 필요하면 now()
+불리언(BOOL)
+
+
+TABLE 만들기
+CREATE TABLE person (
+	id SERIAL NOT NULL PRIMARY KEY,
+	name TEXT NOT NULL,
+	gender TEXT NOT NULL,
+	date_of_birth DATE	 NOT NULL,
+	email VARCHAR(150)
+);
+
+만약 default 값 설정하고싶으면
+	
+	create_at TIMESTAMPTZ DEFAULT now()
+
+전체 TABLE 확인하기
+\d
+-
+여기서, person 이 있고 person_id_seq 이 있는데, 뒤에 있는건 시퀀스임.
+
+
+
+특정 테이블 컬럼 확인하기
+\d person
+
+테이블 삭제하기(삭제)
+DROP TABLE person;
+DELETE FROM person; (테이블 내용만 싹 다 지우기)
+
+행 추가
+INSERT INTO person (
+	name,
+	gender,
+	date_of_birth)
+VALUES ('조교행님', '남자', DATE '1993-03-21');
+
+INSERT INTO person (
+	name,
+	gender,
+	date_of_birth,
+	email)
+VALUES ('이수진', '여자', DATE '1995-12-03', 'sj@gmail.com');
+
+테이블 열 확인하기
+ 기존것과 똑같음
+
+수정(동일)
+
+삭제
+
+이제 graphql과 연동
+
+npx postgraphile -c 'postgres://user:pass@localhost/mydb' --schema jony --watch --enhance-graphiql --dynamic-json
+나한테 적용하면 다음과 같다.
+npx postgraphile -c 'postgres://postgres:*gnuCSjony0522@localhost/test' --schema jony --watch --enhance-graphiql --dynamic-json
+
+여기서 --schema jony 옵션을 줬다. 처음으로, 스키마의 쓸모가 나왔다. 이 스키마에 있는것만 인식한다는 뜻임.
+

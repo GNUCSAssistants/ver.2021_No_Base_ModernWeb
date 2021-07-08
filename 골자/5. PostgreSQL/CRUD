@@ -107,8 +107,8 @@ CREATE TABLE person (
 	id SERIAL NOT NULL PRIMARY KEY,
 	name TEXT NOT NULL,
 	gender TEXT NOT NULL,
-	date_of_birth DATE	 NOT NULL,
-	email VARCHAR(150)
+	date_of_birth DATE NOT NULL,
+	email TEXT,
 	create_at TIMESTAMPTZ DEFAULT now()
 );
 

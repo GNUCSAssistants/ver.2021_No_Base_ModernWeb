@@ -90,9 +90,10 @@ VALUES ('이수진', '여자', DATE '1995-12-03', 'sj@gmail.com');
 
 이제 graphql과 연동
 
-npx postgraphile -c 'postgres://user:pass@localhost/mydb' --schema jony --watch --enhance-graphiql --dynamic-json
+npx postgraphile -c 'postgres://user:pass@localhost/mydb' --schema jony --watch --enhance-graphiql --dynamic-json -o
 나한테 적용하면 다음과 같다.
-npx postgraphile -c 'postgres://postgres:*gnuCSjony0522@localhost/test' --schema jony --watch --enhance-graphiql --dynamic-json
+npx postgraphile -c 'postgres://postgres:*gnuCSjony0522@localhost/test' --schema jony --watch --enhance-graphiql --dynamic-json -o
 
 여기서 --schema jony 옵션을 줬다. 처음으로, 스키마의 쓸모가 나왔다. 이 스키마에 있는것만 인식한다는 뜻임.
 
+-o 는 CORS 에러때문에 넣어둔 것
